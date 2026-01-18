@@ -3,13 +3,33 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
+  useAuth,
 } from '@clerk/clerk-react'
 import { RecipeForm } from '@/components/RecipeForm'
 import { Recipe } from '@/domain/Recipe'
+import { createRecipe } from '@/lib/api'
 
 export function App() {
-  function handleSubmit(recipe: Recipe) {
-    console.log('Recipe submitted:', recipe)
+  const { getToken } = useAuth()
+
+  async function handleSubmit(recipe: Recipe) {
+    const token = await getToken()
+    if (!token) {
+      console.error('No auth token available')
+      return
+    }
+
+    try {
+      const result = await createRecipe(token, {
+        name: recipe.name,
+        type: recipe.type,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+      })
+      console.log('Recipe created:', result)
+    } catch (error) {
+      console.error('Failed to create recipe:', error)
+    }
   }
 
   return (
