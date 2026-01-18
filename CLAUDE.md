@@ -44,10 +44,17 @@ cd web && npx vitest path/to/file.test.ts
 recipe-book/
 ├── api/                    # NestJS backend
 │   └── src/
-│       ├── main.ts         # Bootstrap (port 3000)
-│       ├── app.module.ts   # Root module
-│       ├── app.controller.ts
-│       └── app.service.ts
+│       ├── main.ts             # Bootstrap (port 3000)
+│       ├── app.module.ts       # Root module
+│       ├── auth/               # Clerk JWT authentication
+│       │   ├── auth.guard.ts       # Route guard
+│       │   └── auth.service.ts     # Token verification
+│       ├── prisma/             # Database access
+│       │   └── prisma.service.ts
+│       └── recipes/            # Recipe CRUD
+│           ├── recipes.controller.ts
+│           ├── recipes.service.ts
+│           └── recipe-repository.ts  # Nullable for testing
 │
 └── web/                    # React frontend
     └── src/
