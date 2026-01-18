@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16
+    container_name: recipe-book-db
+    network_mode: host
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: recipe_book
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
