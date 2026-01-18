@@ -51,10 +51,16 @@ recipe-book/
 │
 └── web/                    # React frontend
     └── src/
-        ├── domain/         # Domain models (Recipe)
-        ├── components/     # React components
-        │   └── ui/         # shadcn/ui components
-        └── lib/            # Utilities
+        ├── App.tsx             # View state (list/detail/create/edit)
+        ├── domain/             # Domain models (Recipe)
+        ├── components/
+        │   ├── RecipeCard.tsx      # Compact card for list view
+        │   ├── RecipeList.tsx      # Grid of recipe cards
+        │   ├── RecipeDetail.tsx    # Full recipe view
+        │   ├── RecipeForm.tsx      # Create/edit form
+        │   └── ui/                 # shadcn/ui components
+        └── lib/
+            └── api.ts              # API client (CRUD operations)
 ```
 
 ### API (NestJS)
