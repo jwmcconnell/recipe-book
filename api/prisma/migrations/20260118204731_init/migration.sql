@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "Recipe" (
     "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "ingredients" JSONB NOT NULL,

@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { RecipeRepository, Recipe, RecipeInput } from './recipe-repository';
+import {
+  RecipeRepository,
+  Recipe,
+  RecipeInput,
+  CreateRecipeDto,
+} from './recipe-repository';
 
 @Injectable()
 export class RecipesService {
@@ -9,19 +14,23 @@ export class RecipesService {
     return this.repository.save(data);
   }
 
-  findAll(): Promise<Recipe[]> {
-    return this.repository.findAll();
+  findAll(userId: string): Promise<Recipe[]> {
+    return this.repository.findAll(userId);
   }
 
-  findOne(id: string): Promise<Recipe | null> {
-    return this.repository.findById(id);
+  findOne(id: string, userId: string): Promise<Recipe | null> {
+    return this.repository.findById(id, userId);
   }
 
-  update(id: string, data: Partial<RecipeInput>): Promise<Recipe | null> {
-    return this.repository.update(id, data);
+  update(
+    id: string,
+    userId: string,
+    data: Partial<CreateRecipeDto>,
+  ): Promise<Recipe | null> {
+    return this.repository.update(id, userId, data);
   }
 
-  delete(id: string): Promise<Recipe | null> {
-    return this.repository.deleteById(id);
+  delete(id: string, userId: string): Promise<Recipe | null> {
+    return this.repository.deleteById(id, userId);
   }
 }

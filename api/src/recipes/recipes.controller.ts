@@ -7,10 +7,13 @@ import {
   Body,
   Param,
   UseGuards,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { AuthGuard } from '../auth/auth.guard';
+import { AuthUser } from '../auth/auth.service';
 import { RecipesService } from './recipes.service';
-import type { RecipeInput } from './recipe-repository';
+import type { CreateRecipeDto } from './recipe-repository';
 
 @Controller('recipes')
 @UseGuards(AuthGuard)
@@ -18,27 +21,37 @@ export class RecipesController {
   constructor(private recipesService: RecipesService) {}
 
   @Post()
-  create(@Body() data: RecipeInput) {
-    return this.recipesService.create(data);
+  create(
+    @Req() req: Request & { user: AuthUser },
+    @Body() data: CreateRecipeDto,
+  ) {
+    return this.recipesService.create({ ...data, userId: req.user.userId });
   }
 
   @Get()
-  findAll() {
-    return this.recipesService.findAll();
+  findAll(@Req() req: Request & { user: AuthUser }) {
+    return this.recipesService.findAll(req.user.userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.recipesService.findOne(id);
+  findOne(
+    @Req() req: Request & { user: AuthUser },
+    @Param('id') id: string,
+  ) {
+    return this.recipesService.findOne(id, req.user.userId);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() data: Partial<RecipeInput>) {
-    return this.recipesService.update(id, data);
+  update(
+    @Req() req: Request & { user: AuthUser },
+    @Param('id') id: string,
+    @Body() data: Partial<CreateRecipeDto>,
+  ) {
+    return this.recipesService.update(id, req.user.userId, data);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.recipesService.delete(id);
+  delete(@Req() req: Request & { user: AuthUser }, @Param('id') id: string) {
+    return this.recipesService.delete(id, req.user.userId);
   }
 }
