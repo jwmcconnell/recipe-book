@@ -34,10 +34,7 @@ export class RecipesController {
   }
 
   @Get(':id')
-  findOne(
-    @Req() req: Request & { user: AuthUser },
-    @Param('id') id: string,
-  ) {
+  findOne(@Req() req: Request & { user: AuthUser }, @Param('id') id: string) {
     return this.recipesService.findOne(id, req.user.userId);
   }
 

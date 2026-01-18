@@ -84,13 +84,17 @@ class PrismaRecipeStore implements RecipeStore {
     userId: string,
     data: Partial<CreateRecipeDto>,
   ): Promise<Recipe | null> {
-    const recipe = await this.prisma.recipe.findFirst({ where: { id, userId } });
+    const recipe = await this.prisma.recipe.findFirst({
+      where: { id, userId },
+    });
     if (!recipe) return null;
     return this.prisma.recipe.update({ where: { id }, data });
   }
 
   async deleteById(id: string, userId: string): Promise<Recipe | null> {
-    const recipe = await this.prisma.recipe.findFirst({ where: { id, userId } });
+    const recipe = await this.prisma.recipe.findFirst({
+      where: { id, userId },
+    });
     if (!recipe) return null;
     return this.prisma.recipe.delete({ where: { id } });
   }

@@ -39,7 +39,10 @@ describe('RecipesController', () => {
         instructions: ['Mix', 'Cook'],
       };
 
-      const result = await controller.create(mockRequest(testUserId), createDto);
+      const result = await controller.create(
+        mockRequest(testUserId),
+        createDto,
+      );
 
       expect(result.id).toBeDefined();
       expect(result.userId).toBe(testUserId);
@@ -58,8 +61,14 @@ describe('RecipesController', () => {
         instructions: [],
       };
 
-      const created = await controller.create(mockRequest(testUserId), createDto);
-      const found = await controller.findOne(mockRequest(testUserId), created.id);
+      const created = await controller.create(
+        mockRequest(testUserId),
+        createDto,
+      );
+      const found = await controller.findOne(
+        mockRequest(testUserId),
+        created.id,
+      );
 
       expect(found).toEqual(created);
     });
