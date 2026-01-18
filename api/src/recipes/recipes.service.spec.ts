@@ -59,8 +59,24 @@ describe('RecipesService', () => {
   describe('findAll', () => {
     it('returns all recipes', async () => {
       const recipes = [
-        { id: '1', name: 'Pancakes', type: 'food', ingredients: [], instructions: [], createdAt: new Date(), updatedAt: new Date() },
-        { id: '2', name: 'Margarita', type: 'drink', ingredients: [], instructions: [], createdAt: new Date(), updatedAt: new Date() },
+        {
+          id: '1',
+          name: 'Pancakes',
+          type: 'food',
+          ingredients: [],
+          instructions: [],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: '2',
+          name: 'Margarita',
+          type: 'drink',
+          ingredients: [],
+          instructions: [],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ];
 
       mockPrismaService.recipe.findMany.mockResolvedValue(recipes);
@@ -74,13 +90,23 @@ describe('RecipesService', () => {
 
   describe('findOne', () => {
     it('returns a recipe by id', async () => {
-      const recipe = { id: 'uuid-123', name: 'Pancakes', type: 'food', ingredients: [], instructions: [], createdAt: new Date(), updatedAt: new Date() };
+      const recipe = {
+        id: 'uuid-123',
+        name: 'Pancakes',
+        type: 'food',
+        ingredients: [],
+        instructions: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
 
       mockPrismaService.recipe.findUnique.mockResolvedValue(recipe);
 
       const result = await service.findOne('uuid-123');
 
-      expect(prisma.recipe.findUnique).toHaveBeenCalledWith({ where: { id: 'uuid-123' } });
+      expect(prisma.recipe.findUnique).toHaveBeenCalledWith({
+        where: { id: 'uuid-123' },
+      });
       expect(result).toEqual(recipe);
     });
   });
@@ -88,26 +114,47 @@ describe('RecipesService', () => {
   describe('update', () => {
     it('updates a recipe', async () => {
       const updateData = { name: 'Updated Pancakes' };
-      const updatedRecipe = { id: 'uuid-123', name: 'Updated Pancakes', type: 'food', ingredients: [], instructions: [], createdAt: new Date(), updatedAt: new Date() };
+      const updatedRecipe = {
+        id: 'uuid-123',
+        name: 'Updated Pancakes',
+        type: 'food',
+        ingredients: [],
+        instructions: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
 
       mockPrismaService.recipe.update.mockResolvedValue(updatedRecipe);
 
       const result = await service.update('uuid-123', updateData);
 
-      expect(prisma.recipe.update).toHaveBeenCalledWith({ where: { id: 'uuid-123' }, data: updateData });
+      expect(prisma.recipe.update).toHaveBeenCalledWith({
+        where: { id: 'uuid-123' },
+        data: updateData,
+      });
       expect(result).toEqual(updatedRecipe);
     });
   });
 
   describe('delete', () => {
     it('deletes a recipe', async () => {
-      const deletedRecipe = { id: 'uuid-123', name: 'Pancakes', type: 'food', ingredients: [], instructions: [], createdAt: new Date(), updatedAt: new Date() };
+      const deletedRecipe = {
+        id: 'uuid-123',
+        name: 'Pancakes',
+        type: 'food',
+        ingredients: [],
+        instructions: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
 
       mockPrismaService.recipe.delete.mockResolvedValue(deletedRecipe);
 
       const result = await service.delete('uuid-123');
 
-      expect(prisma.recipe.delete).toHaveBeenCalledWith({ where: { id: 'uuid-123' } });
+      expect(prisma.recipe.delete).toHaveBeenCalledWith({
+        where: { id: 'uuid-123' },
+      });
       expect(result).toEqual(deletedRecipe);
     });
   });
