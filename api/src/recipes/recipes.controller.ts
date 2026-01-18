@@ -6,11 +6,14 @@ import {
   Delete,
   Body,
   Param,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '../auth/auth.guard';
 import { RecipesService } from './recipes.service';
 import type { RecipeInput } from './recipe-repository';
 
 @Controller('recipes')
+@UseGuards(AuthGuard)
 export class RecipesController {
   constructor(private recipesService: RecipesService) {}
 

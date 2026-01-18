@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
+import { AuthService } from '../auth/auth.service';
 import { RecipesController } from './recipes.controller';
 import { RecipesService } from './recipes.service';
 import { RecipeRepository } from './recipe-repository';
@@ -16,6 +17,7 @@ describe('RecipesController', () => {
       providers: [
         RecipesService,
         { provide: RecipeRepository, useValue: repository },
+        { provide: AuthService, useValue: AuthService.createNull() },
       ],
     }).compile();
 
