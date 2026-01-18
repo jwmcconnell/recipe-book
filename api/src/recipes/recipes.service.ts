@@ -1,28 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, Recipe } from '@prisma/client';
+import { RecipeRepository, Recipe, RecipeInput } from './recipe-repository';
 
 @Injectable()
 export class RecipesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private repository: RecipeRepository) {}
 
-  create(data: Prisma.RecipeCreateInput): Promise<Recipe> {
-    return this.prisma.recipe.create({ data });
+  create(data: RecipeInput): Promise<Recipe> {
+    return this.repository.save(data);
   }
 
   findAll(): Promise<Recipe[]> {
-    return this.prisma.recipe.findMany();
+    return this.repository.findAll();
   }
 
   findOne(id: string): Promise<Recipe | null> {
-    return this.prisma.recipe.findUnique({ where: { id } });
+    return this.repository.findById(id);
   }
 
-  update(id: string, data: Prisma.RecipeUpdateInput): Promise<Recipe> {
-    return this.prisma.recipe.update({ where: { id }, data });
+  update(id: string, data: Partial<RecipeInput>): Promise<Recipe | null> {
+    return this.repository.update(id, data);
   }
 
-  delete(id: string): Promise<Recipe> {
-    return this.prisma.recipe.delete({ where: { id } });
+  delete(id: string): Promise<Recipe | null> {
+    return this.repository.deleteById(id);
   }
 }
