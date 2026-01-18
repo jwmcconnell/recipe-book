@@ -5,8 +5,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Recipe Book - a monorepo with two applications:
-- `api/` - NestJS backend (TypeScript, Jest)
-- `web/` - React frontend (TypeScript, Vite, Vitest, Tailwind CSS v4)
+- `api/` - NestJS backend (TypeScript, Jest) → https://recipe-helper-api-production.up.railway.app
+- `web/` - React frontend (TypeScript, Vite, Vitest, Tailwind CSS v4) → https://recipe-helper.dev
+
+## Deployment
+
+Trunk-based development. Push to `main` triggers `.github/workflows/deploy.yml`:
+- Tests run in parallel for both apps
+- On success, deploys web to Netlify and API to Railway
 
 ## Commands
 
