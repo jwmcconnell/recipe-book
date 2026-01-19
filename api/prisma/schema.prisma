@@ -16,3 +16,23 @@ model Recipe {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model GroceryList {
+  id        String        @id @default(uuid())
+  userId    String
+  name      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  items     GroceryItem[]
+}
+
+model GroceryItem {
+  id        String      @id @default(uuid())
+  listId    String
+  name      String
+  quantity  String?
+  checked   Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  list      GroceryList @relation(fields: [listId], references: [id], onDelete: Cascade)
+}
