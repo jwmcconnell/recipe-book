@@ -51,20 +51,29 @@ recipe-book/
 │       │   └── auth.service.ts     # Token verification
 │       ├── prisma/             # Database access
 │       │   └── prisma.service.ts
-│       └── recipes/            # Recipe CRUD
-│           ├── recipes.controller.ts
-│           ├── recipes.service.ts
-│           └── recipe-repository.ts  # Nullable for testing
+│       ├── recipes/            # Recipe CRUD
+│       │   ├── recipes.controller.ts
+│       │   ├── recipes.service.ts
+│       │   └── recipe-repository.ts  # Nullable for testing
+│       └── grocery-lists/      # Grocery list CRUD
+│           ├── grocery-lists.controller.ts
+│           ├── grocery-lists.service.ts
+│           └── grocery-list-repository.ts  # Nullable for testing
 │
 └── web/                    # React frontend
     └── src/
-        ├── App.tsx             # View state (list/detail/create/edit)
-        ├── domain/             # Domain models (Recipe)
+        ├── App.tsx             # Section nav (recipes/grocery) + view state
+        ├── domain/             # Domain models
+        │   ├── Recipe.ts
+        │   ├── GroceryList.ts
+        │   └── GroceryItem.ts
         ├── components/
         │   ├── RecipeCard.tsx      # Compact card for list view
         │   ├── RecipeList.tsx      # Grid of recipe cards
         │   ├── RecipeDetail.tsx    # Full recipe view
         │   ├── RecipeForm.tsx      # Create/edit form
+        │   ├── GroceryListView.tsx # Grocery list detail with items
+        │   ├── GroceryItemRow.tsx  # Single item row with checkbox
         │   └── ui/                 # shadcn/ui components
         └── lib/
             └── api.ts              # API client (CRUD operations)

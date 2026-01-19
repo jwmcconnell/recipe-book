@@ -93,3 +93,150 @@ export async function createRecipe(
 
   return response.json()
 }
+
+export async function getGroceryLists(token: string) {
+  const response = await fetch(`${API_BASE_URL}/grocery-lists`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch grocery lists: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function getGroceryList(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/grocery-lists/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch grocery list: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function createGroceryList(token: string, data: { name: string }) {
+  const response = await fetch(`${API_BASE_URL}/grocery-lists`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to create grocery list: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function updateGroceryList(
+  token: string,
+  id: string,
+  data: { name: string }
+) {
+  const response = await fetch(`${API_BASE_URL}/grocery-lists/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to update grocery list: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function deleteGroceryList(token: string, id: string) {
+  const response = await fetch(`${API_BASE_URL}/grocery-lists/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete grocery list: ${response.status}`)
+  }
+}
+
+export async function addGroceryItem(
+  token: string,
+  listId: string,
+  data: { name: string; quantity?: string }
+) {
+  const response = await fetch(`${API_BASE_URL}/grocery-lists/${listId}/items`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to add grocery item: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function updateGroceryItem(
+  token: string,
+  listId: string,
+  itemId: string,
+  data: { name?: string; quantity?: string; checked?: boolean }
+) {
+  const response = await fetch(
+    `${API_BASE_URL}/grocery-lists/${listId}/items/${itemId}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error(`Failed to update grocery item: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export async function deleteGroceryItem(
+  token: string,
+  listId: string,
+  itemId: string
+) {
+  const response = await fetch(
+    `${API_BASE_URL}/grocery-lists/${listId}/items/${itemId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete grocery item: ${response.status}`)
+  }
+}
